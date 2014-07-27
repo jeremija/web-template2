@@ -1,0 +1,21 @@
+{
+  "name": "temp-express",
+  "version": "0.0.0",
+  "authors": [
+    "jeremija <jerko.steiner@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/static/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "extendable.js": "~0.0.3",
+    "requirejs": "~2.1.14"
+  }
+}
