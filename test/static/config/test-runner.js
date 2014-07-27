@@ -6,8 +6,6 @@
 
     function run() {
         if (window.mochaPhantomJS) {
-            // disable log output in tests
-            Logger.prototype.disabled = true;
             mochaPhantomJS.run();
         }
         else {

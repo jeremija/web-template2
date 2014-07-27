@@ -7,6 +7,14 @@ JSHINT=node node_modules/.bin/jshint
 LESSC=node node_modules/.bin/lessc
 SOURCE=src/js/**/*.js
 
+MOCHA=node node_modules/.bin/mocha-phantomjs
+TEST_URL=test/static/test.html
+
+GREEN='\e[32m'
+NO_COLOR='\e[39m'
+
+___OK___=echo -e $(GREEN)---- OK ----$(NO_COLOR)
+
 .PHONY: build
 build:
 	@mkdir dist
@@ -27,19 +35,31 @@ build:
 		out="dist/static/js/app.js" \
 		preserveLicenseComments=false
 
+	@$(___OK___)
+
 .PHONY: clean
 clean:
 	@rm -rf dist
+	@$(___OK___)
+
+.PHONY: test
+test: test-gen mocha-phantomjs
+
+.PHONY: mocha-phantomjs
+mocha-phantomjs:
+	$(MOCHA) $(TEST_URL)
+	@$(___OK___)
 
 .PHONY: test-gen
 test-gen:
 	@node test/static/find-tests.js
+	@$(___OK___)
 
 .PHONY: test-server
 test-server: test-gen test-server-start
 
 .PHONY: test-server-start
 test-server-start:
-	@echo "starting unit tests server"
-	@echo "visit http://localhost:$(SERVER_PORT)/test/static/test.html to run tests"
+	@echo -e "starting unit tests server"
+	@echo -e "visit http://localhost:$(SERVER_PORT)/$(TEST_URL) to run tests"
 	@$(SERVER)

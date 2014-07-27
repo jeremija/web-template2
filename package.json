@@ -9,7 +9,9 @@
   "author": "",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "requirejs": "~2.1.14"
+    "requirejs": "~2.1.14",
+    "phantomjs": "~1.9.7-15",
+    "mocha-phantomjs": "~3.5.0"
   },
   "dependencies": {
     "ejs": "~1.0.0",

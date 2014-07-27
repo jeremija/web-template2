@@ -49,13 +49,13 @@ var text = '// auto generated unit tests lists based on file extension\n' +
     '// do not commit this file!\n' +
     'var tests = [\n';
 
-console.log('----------------------------------------------------------------');
+console.log('------------');
 files.forEach(function(item, index) {
     var file = item.substring(__dirname.length + 1);
     console.log('found test: ' + file);
     text += '    \'' + file + '\',\n';
 });
-console.log('----------------------------------------------------------------');
+console.log('------------');
 // remove trailing comma
 if (endsWith(text, ',')) text = text.substring(0, text.length - 1)
 
@@ -63,4 +63,3 @@ text += ']';
 
 console.log('Writing config/tests.js ...');
 fs.writeFile(__dirname + '/config/tests.js', text);
-console.log('DONE!');
