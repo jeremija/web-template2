@@ -17,14 +17,14 @@ build:
 
 	@mkdir dist/static/js
 
-	# name="../b"
 	@$(RJS) -o \
-		name="app"
+		name="app" \
 		baseUrl="src/static/js" \
-		include="app" \
+		paths.requireLib="../bower/requirejs/require" \
+		include="requireLib" \
 		optimize=none \
 		mainConfigFile="./src/static/js/require/config.js" \
-		out="" \
+		out="dist/static/js/app.js" \
 		preserveLicenseComments=false
 
 .PHONY: clean

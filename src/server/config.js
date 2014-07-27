@@ -1,3 +1,7 @@
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
 module.exports = {
     setup: function(app) {
         for (var field in this.settings) {
@@ -8,6 +12,6 @@ module.exports = {
     },
     settings: {
         title: 'Template v2',
-        minified: false
+        development: endsWith(__dirname, '/src/server')
     }
 };
