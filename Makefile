@@ -30,3 +30,16 @@ build:
 .PHONY: clean
 clean:
 	@rm -rf dist
+
+.PHONY: test-gen
+test-gen:
+	@node test/static/find-tests.js
+
+.PHONY: test-server
+test-server: test-gen test-server-start
+
+.PHONY: test-server-start
+test-server-start:
+	@echo "starting unit tests server"
+	@echo "visit http://localhost:$(SERVER_PORT)/test/static/test.html to run tests"
+	@$(SERVER)

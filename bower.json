@@ -17,5 +17,9 @@
   "dependencies": {
     "extendable.js": "~0.0.3",
     "requirejs": "~2.1.14"
+  },
+  "devDependencies": {
+    "mocha": "~1.21.0",
+    "expect": "~0.3.1"
   }
 }
