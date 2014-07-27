@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{{= settings.title}}</title>
+
+	{{ if (!settings.minified) { }}
+	<script src="js/require/config.js"></script>
+  	<script data-main="js/app.js" src="bower/requirejs/require.js"></script>
+  	{{ } else { }}
+  	<script src="js/app.min.js"></script>
+  	{{ } }}
+</head>
+<body>
