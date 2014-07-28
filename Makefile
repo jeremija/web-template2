@@ -1,7 +1,8 @@
 RJS=node node_modules/.bin/r.js
 BROWSER=google-chrome
-SERVER_PORT=8080
-SERVER=http-server -p $(SERVER_PORT)
+RUN_PORT=8082
+TEST_PORT=8081
+TEST_SERVER=http-server -p $(TEST_PORT)
 JSDOC=node node_modules/.bin/jsdoc
 JSHINT=node node_modules/.bin/jshint
 LESSC=node node_modules/.bin/lessc
@@ -107,9 +108,10 @@ test-server: test-gen test-server-start
 test-server-start:
 	$(__START__)
 	# starting unit testing server"
-	# visit http://localhost:$(SERVER_PORT)/$(TEST_URL) to run tests
+	# visit http://localhost:$(TEST_PORT)/$(TEST_URL) to run tests
 
-	@$(SERVER)
+	@$(TEST_SERVER)
+	RUN_SERVER=node
 
 .PHONY: jshint
 jshint:
@@ -124,7 +126,9 @@ jshint:
 run:
 	$(__START__)
 
-	@node src/server/
+	#visit http://localhost:$(RUN_PORT)/ after the server starts
+
+	@PORT=$(RUN_PORT) node src/server/
 
 	$(___OK___)
 
@@ -132,6 +136,8 @@ run:
 run-dist:
 	$(__START__)
 
-	@node dist/server/
+	#visit http://localhost:$(RUN_PORT)/ after the server starts
+
+	@PORT=$(RUN_PORT) dist/server/
 
 	$(___OK___)
