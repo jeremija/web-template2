@@ -16,8 +16,8 @@ GREEN='\e[32m'
 # disables color outut
 NC='\e[39m'
 
-___OK___= @echo -e $(GREEN)---- make \'$@\' done ----$(NC)
-__START__=@echo -e $(YELLOW)---- run make \'$@\' -----$(NC)
+___OK___= @echo -e $(GREEN)\> make \'$@\' done $(NC)
+__START__=@echo -e $(YELLOW)\> make \'$@\'$(NC)
 
 .PHONY: help
 help:
@@ -75,12 +75,12 @@ clean:
 	$(___OK___)
 
 .PHONY: test
-test: test-gen mocha-phantomjs
+test: jshint test-gen mocha-phantomjs
 
 .PHONY: mocha-phantomjs
 mocha-phantomjs:
 	$(__START__)
-	@echo "* running unit tests..."
+	@echo "* running unit tests: $(TEST_URL)"
 
 	@$(MOCHA) $(TEST_URL)
 
