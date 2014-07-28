@@ -55,7 +55,7 @@ files.forEach(function(item, index) {
     console.log('found test: ' + file);
     text += '    \'' + file + '\',\n';
 });
-console.log('------------');
+console.log(' ');
 // remove trailing comma
 if (endsWith(text, ',')) text = text.substring(0, text.length - 1);
 
