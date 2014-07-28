@@ -7,7 +7,7 @@ function endsWith(str, suffix) {
 }
 
 function listFiles(path, extension) {
-    console.log('Scanning folder: ' + __dirname + '/' + path);
+    console.log('scanning folder: ' + __dirname + '/' + path);
 
     var dirs = [__dirname + '/' + path];
     var files = [];
@@ -57,9 +57,9 @@ files.forEach(function(item, index) {
 });
 console.log('------------');
 // remove trailing comma
-if (endsWith(text, ',')) text = text.substring(0, text.length - 1)
+if (endsWith(text, ',')) text = text.substring(0, text.length - 1);
 
-text += ']';
+text += '];';
 
-console.log('Writing config/tests.js ...');
+console.log('writing config/tests.js ...');
 fs.writeFile(__dirname + '/config/tests.js', text);
