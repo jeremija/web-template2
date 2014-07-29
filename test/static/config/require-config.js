@@ -1,5 +1,6 @@
 require.baseUrl = '../../src/static/js';
 require.paths.test = '../../../test/static';
+require.paths.Squire = '../bower/squire/src/Squire';
 // require.urlArgs = "bust=" +  (new Date()).getTime();
 
 // mock Ajax

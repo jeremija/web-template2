@@ -1,5 +1,5 @@
-define(['core/EventListener'], function(EventListener) {
-    describe('test/static/js/core/EventListener-test.js', function() {
+define(['core/events/EventListener'], function(EventListener) {
+    describe('test/js/core/events/EventListener-test.js', function() {
 
         var listener, context;
 

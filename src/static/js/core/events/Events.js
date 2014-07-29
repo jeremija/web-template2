@@ -1,4 +1,4 @@
-define(['Extendable', 'core/EventListener'],
+define(['Extendable', 'core/events/EventListener'],
     function(Extendable, EventListener) {
 
     /**
@@ -12,6 +12,7 @@ define(['Extendable', 'core/EventListener'],
     var allListeners = {};
 
     EventsPrototype = /** @lends Events.prototype */ {
+        debug: false,
         /**
          * Contains names of events and callback functions
          * @type {Object} which contains eventName as a key and an array of
@@ -79,17 +80,25 @@ define(['Extendable', 'core/EventListener'],
         dispatch: function(eventName) {
             var args = Array.prototype.slice.call(arguments, 1);
 
+            if (this.debug) {
+                this._lastEvents.push({
+                    name: eventName,
+                    args: args
+                });
+            }
+
             var listeners = allListeners[eventName];
 
             if (typeof listeners !== 'object') {
-                console.warn('no listeners for eventName: ' + eventName);
+                console.warn('no listeners for eventName=' + eventName);
                 return;
             }
 
             listeners.forEach(function(listener) {
                 listener.invoke.apply(listener, args);
             });
-        }
+        },
+        _lastEvents: []
     };
 
     return Extendable.extend(Events, EventsPrototype);

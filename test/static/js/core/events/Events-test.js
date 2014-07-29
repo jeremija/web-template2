@@ -1,6 +1,6 @@
-define(['core/Events'], function(Events) {
+define(['core/events/Events'], function(Events) {
 
-    describe('test/static/js/core/Events-test.js', function() {
+    describe('test/js/core/events/Events-test.js', function() {
 
         it('should initialize', function() {
             var events = new Events();
