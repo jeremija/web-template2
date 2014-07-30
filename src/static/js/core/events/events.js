@@ -1,18 +1,21 @@
-define(['Extendable', 'core/events/EventListener'],
-    function(Extendable, EventListener) {
-
-    /**
-     * @class serves for dispatching events through the application
-     * @name core/Events
-     * @param {Object} context which will be used while calling callback
-     */
-    function Events() {
-    }
+/**
+ * Serves for dispatching event throughout the application
+ * @module core/events/events
+ */
+define(['core/events/EventListener'],
+    function(EventListener) {
 
     var allListeners = {};
 
-    EventsPrototype = /** @lends Events.prototype */ {
+    var exports = {
+        /**
+         * Determines whether or not to store events to _lastEvents property.
+         * @type {Boolean}
+         */
         debug: false,
+        _getAllListeners: function() {
+            return allListeners;
+        },
         /**
          * Contains names of events and callback functions
          * @type {Object} which contains eventName as a key and an array of
@@ -48,18 +51,23 @@ define(['Extendable', 'core/events/EventListener'],
             var listeners = allListeners[eventName];
             if (!listeners) return;
 
+            var count = 0;
             for(var i = 0; i < listeners.length; i++) {
                 var listener = listeners[i];
                 if (listener.callback === callback) {
                     listeners.splice(i, 1);
+                    count++;
+                    i--;
                 }
             }
+            return count;
         },
         /**
          * Removes all listeners which have the same context.
          * @param  {Object} context
          */
-        removeAllListeners: function(context) {
+        removeListeners: function(context) {
+            var count = 0;
             for (var eventName in allListeners) {
                 if (allListeners.hasOwnProperty(eventName)) {
                     var listeners = allListeners[eventName];
@@ -67,10 +75,13 @@ define(['Extendable', 'core/events/EventListener'],
                         var listener = listeners[i];
                         if (listener.context === context) {
                             listeners.splice(i, 1);
+                            count++;
+                            i--;
                         }
                     }
                 }
             }
+            return count;
         },
         /**
          * Calls all events
@@ -101,6 +112,6 @@ define(['Extendable', 'core/events/EventListener'],
         _lastEvents: []
     };
 
-    return Extendable.extend(Events, EventsPrototype);
+    return exports;
 
 });

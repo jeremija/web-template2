@@ -1,9 +1,7 @@
-define(['core/events/Events'], function(Events) {
+define(['core/events/events', 'core/obj'], function(events, obj) {
+    describe('test/js/core/events/events-test.js', function() {
 
-    describe('test/js/core/events/Events-test.js', function() {
-
-        it('should initialize', function() {
-            var events = new Events();
+        it('should be initialized', function() {
             expect(events).to.be.ok();
 
             expect(events.addListener).to.be.a('function');
@@ -11,34 +9,36 @@ define(['core/events/Events'], function(Events) {
             expect(events.dispatch).to.be.a('function');
         });
 
-        describe('addListener() and dispatch()', function() {
-            var events;
-            beforeEach(function() {
-                events = new Events();
+        function cleanup() {
+            var listeners = events._getAllListeners();
+            obj.each(listeners, function(value, property) {
+                delete listeners[property];
             });
+        }
+
+        describe('addListener() and dispatch()', function() {
+            var count = 0, args;
+            function callback() {
+                args = [].slice.call(arguments);
+                count++;
+            }
+            beforeEach(function() {
+                args = undefined;
+                count = 0;
+            });
+            afterEach(cleanup);
 
             it('should invoke listener with dispatch()', function() {
-                var called = false;
-
-                events.addListener('my event', function(test) {
-                    called = true;
-                });
+                events.addListener('my event', callback);
 
                 events.dispatch('my event');
 
-                expect(called).to.be(true);
+                expect(count).to.be(1);
             });
 
             it('should invoke multiple listeners with dispatch()', function() {
-                var args, count = 0;
-
-                function callback() {
-                    args = [].slice.call(arguments);
-                    count++;
-                }
-
-                events.addListener('my event', callback);
-                events.addListener('my event', callback);
+                events.addListener('my event', callback, context);
+                events.addListener('my event', callback, context);
 
                 events.dispatch('my event', 1, 2);
 
@@ -50,25 +50,31 @@ define(['core/events/Events'], function(Events) {
             it('should invoke listener with specific context', function() {
                 var context = {};
 
-                events.addListener('my event', function(arg) {
+                function cb(arg) {
                     this.value = arg;
-                }, context);
+                }
+
+                events.addListener('my event', cb, context);
 
                 events.dispatch('my event', 123);
 
                 expect(context.value).to.be(123);
+
+                events.removeListener('my event', cb);
             });
         });
 
         describe('addListener() and dispatch()', function() {
-            var events, context;
+            var context;
             beforeEach(function() {
-                events = new Events();
+                // require.undef('core/events/events');
+                // events = require('core/events/events');
                 context = {
                     firstEventCount: 0,
                     secondEventCount: 0
                 };
             });
+            afterEach(cleanup);
             it('should add multiple listeners with same context', function() {
                 events.addListeners({
                     'first event': function() {
@@ -90,13 +96,13 @@ define(['core/events/Events'], function(Events) {
         });
 
         describe('removeListener()', function() {
-            var events, context;
+            var context;
             beforeEach(function() {
-                events = new Events();
                 context = {
                     called: false
                 };
             });
+            afterEach(cleanup);
 
             it('should be able to remove listener', function() {
                 function callback() {
@@ -112,10 +118,9 @@ define(['core/events/Events'], function(Events) {
             });
         });
 
-        describe('removeAllListeners()', function() {
-            var events, context1, context2;
+        describe('removeListeners()', function() {
+            var context1, context2;
             beforeEach(function() {
-                events = new Events();
                 context1 = {};
                 context2 = {};
 
@@ -141,9 +146,10 @@ define(['core/events/Events'], function(Events) {
                     this.event1 = true;
                 }, context1);
             });
+            afterEach(cleanup);
 
             it('should be able to remove listeners with context', function() {
-                events.removeAllListeners(context1);
+                events.removeListeners(context1);
 
                 events.dispatch('event1', function() {
                     expect(context1.event1).to.not.be.ok();
