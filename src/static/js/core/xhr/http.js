@@ -1,3 +1,7 @@
+/**
+ * Module for easier dispatching of AJAX HTTP requests.
+ * @module core/xhr/http
+ */
 define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
 {
     'use strict';
@@ -62,12 +66,19 @@ define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
         };
     }
 
+    /**
+     * Http request callback
+     * @callback module:core/xhr/http~callback
+     * @param {Error} err if it happens
+     * @param {Object} data response data
+     * @param {core/xhr/XMLHttpRequest}
+     */
+
     var exports = {
         /**
          * Dispatch a GET request
          * @param  {String} url
-         * @param  {Function} success
-         * @param  {Function} fail
+         * @param  {module:core/xhr/http~callback} callback
          * @return {core/xhr/Http.config}
          */
         get: function(url, callback) {
@@ -79,8 +90,7 @@ define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
          * Dispatch a PUT request
          * @param  {String} url
          * @param  {Object} data
-         * @param  {Function} success
-         * @param  {Function} fail
+         * @param  {module:core/xhr/http~callback} callback
          * @return {core/xhr/Http.config}
          */
         put: function(url, data, callback) {
@@ -92,8 +102,7 @@ define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
          * Dispatch a POST request
          * @param  {String} url
          * @param  {Object} data
-         * @param  {Function} success
-         * @param  {Function} fail
+         * @param  {module:core/xhr/http~callback} callback
          * @return {core/xhr/Http.config}
          */
         post: function(url, data, callback) {
@@ -104,8 +113,7 @@ define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
         /**
          * Dispatch a DELETE request
          * @param  {String} url
-         * @param  {Function} success
-         * @param  {Function} fail
+         * @param  {Function} callback
          * @return {core/xhr/Http.config}
          */
         delete: function(url, callback) {

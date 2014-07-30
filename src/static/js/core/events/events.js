@@ -7,6 +7,13 @@ define(['core/events/EventListener'],
 
     var allListeners = {};
 
+    /**
+     * Callback for events. Will receive all arguments sent to
+     * {@link module:core/events/events.dispatch}.
+     * @callback module:core/events/events~callback
+     * @param {...Object} any
+     */
+
     var exports = {
         /**
          * Determines whether or not to store events to _lastEvents property.
@@ -17,9 +24,10 @@ define(['core/events/EventListener'],
             return allListeners;
         },
         /**
-         * Contains names of events and callback functions
-         * @type {Object} which contains eventName as a key and an array of
-         * @{link core/EventListener}s.
+         * Add an event listener
+         * @param {String} eventName name of the event
+         * @param {module:core/events/events~callback} callback
+         * @param {Object} context this variable set to callback
          */
         addListener: function(eventName, callback, context) {
             var listener = new EventListener(eventName, callback, context);
@@ -32,7 +40,7 @@ define(['core/events/EventListener'],
          * Adds multiple listeners at once
          * @param {Object} listenerData map where key defines eventName and
          * value is a callback function
-         * @param {Object} context      [description]
+         * @param {Object} context
          */
         addListeners: function(listenerData, context) {
             for (var eventName in listenerData) {
@@ -44,8 +52,8 @@ define(['core/events/EventListener'],
         },
         /**
          * Removes all listeners for specific event with specific callback
-         * @param  {String}   eventName [description]
-         * @param  {Function} callback  [description]
+         * @param  {String}   eventName
+         * @param  {module:core/events/events~callback} callback
          */
         removeListener: function(eventName, callback) {
             var listeners = allListeners[eventName];
@@ -86,7 +94,7 @@ define(['core/events/EventListener'],
         /**
          * Calls all events
          * @param {String} eventName
-         * @param {Object...} args variable number of arguments for callbacks.
+         * @param {...Object} args variable number of arguments for callbacks.
          */
         dispatch: function(eventName) {
             var args = Array.prototype.slice.call(arguments, 1);

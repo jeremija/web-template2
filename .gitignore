@@ -2,3 +2,4 @@ node_modules/
 src/static/bower/
 dist/
 test/static/config/tests.js
+docs/

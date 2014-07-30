@@ -76,6 +76,7 @@ all: clean test
 clean:
 	$(__START__)
 
+	@rm -rf docs/
 	@rm -rf $(DIST)
 
 	$(___OK___)
@@ -139,5 +140,16 @@ run-dist:
 	#visit http://localhost:$(RUN_PORT)/ after the server starts
 
 	@PORT=$(RUN_PORT) dist/server/
+
+	$(___OK___)
+
+.PHONY: docs
+docs:
+	$(__START__)
+
+	rm -rf docs/
+	$(JSDOC) -d docs/ -r src/static/js \
+		-t node_modules/ink-docstrap/template \
+		-c jsdoc.conf.json
 
 	$(___OK___)
