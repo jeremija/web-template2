@@ -8,6 +8,7 @@ JSHINT=node node_modules/.bin/jshint
 LESSC=node node_modules/.bin/lessc
 SOURCE=test/static/ src/server/ src/static/js/ src/static/pages/
 DIST=dist
+DOCS=docs
 
 MOCHA=node node_modules/.bin/mocha-phantomjs
 TEST_URL=test/static/test.html
@@ -33,6 +34,7 @@ help:
 	@echo "    help          prints this text"
 	@echo "    run           run development version"
 	@echo "    run-dist      run built version"
+	@echo "    docs          generates jsdoc to $(DOCS)/ folder"
 	@echo ""
 	@echo "to run a target, type 'make <target>'".
 	@echo ""
@@ -76,7 +78,7 @@ all: clean test
 clean:
 	$(__START__)
 
-	@rm -rf docs/
+	@rm -rf $(DOCS)
 	@rm -rf $(DIST)
 
 	$(___OK___)
@@ -112,7 +114,6 @@ test-server-start:
 	# visit http://localhost:$(TEST_PORT)/$(TEST_URL) to run tests
 
 	@$(TEST_SERVER)
-	RUN_SERVER=node
 
 .PHONY: jshint
 jshint:
@@ -147,9 +148,9 @@ run-dist:
 docs:
 	$(__START__)
 
-	rm -rf docs/
-	$(JSDOC) -d docs/ -r src/static/js \
-		-t node_modules/ink-docstrap/template \
-		-c jsdoc.conf.json
+	rm -rf $(DOCS)
+	$(JSDOC) -d $(DOCS) -r src/static/js
+		# -c jsdoc.conf.json
+		# -t node_modules/ink-docstrap/template \
 
 	$(___OK___)

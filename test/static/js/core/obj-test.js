@@ -53,6 +53,26 @@ define(['core/obj'], function(obj) {
                 expect(results[2].item).to.be(myObject.fcn);
             });
         });
+        describe('copy()', function() {
+            it('should copy properties from one object to another', function() {
+                var dest = {
+                    a: 1,
+                    b: 2,
+                    c: 3
+                };
+
+                var ret = obj.copy(dest, {
+                    b: 4,
+                    d: 5
+                });
+
+                expect(ret).to.be(dest);
+                expect(dest.a).to.be(1);
+                expect(dest.b).to.be(4);
+                expect(dest.c).to.be(3);
+                expect(dest.d).to.be(5);
+            });
+        });
     });
 
 });

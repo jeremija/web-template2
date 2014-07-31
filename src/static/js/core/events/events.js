@@ -2,16 +2,16 @@
  * Serves for dispatching event throughout the application
  * @module core/events/events
  */
-define(['core/events/EventListener'],
-    function(EventListener) {
+define(['core/events/EventListener', 'core/obj'],
+    function(EventListener, obj) {
 
     var allListeners = {};
 
     /**
      * Callback for events. Will receive all arguments sent to
      * {@link module:core/events/events.dispatch}.
-     * @callback module:core/events/events~callback
-     * @param {...Object} any
+     * @callback eventCallback
+     * @param {...Object} any all parameters from {@link ~dispatch}.
      */
 
     var exports = {
@@ -23,10 +23,16 @@ define(['core/events/EventListener'],
         _getAllListeners: function() {
             return allListeners;
         },
+        _clear: function() {
+            obj.each(allListeners, function(value, key) {
+                delete allListeners[key];
+                this._lastEvents = [];
+            }, this);
+        },
         /**
          * Add an event listener
          * @param {String} eventName name of the event
-         * @param {module:core/events/events~callback} callback
+         * @param {module:core/events/events~eventCallback} callback
          * @param {Object} context this variable set to callback
          */
         addListener: function(eventName, callback, context) {
