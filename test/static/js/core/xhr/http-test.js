@@ -1,8 +1,12 @@
-define(['test/js/core/xhr/XMLHttpRequestMock'], function(XMLHttpRequestMock) {
+define(['test/js/core/xhr/XMLHttpRequestMock', 'Squire', 'core/json'],
+    function(XMLHttpRequestMock, Squire, json) {
 
     var injector = new Squire();
 
-    injector.mock('core/xhr/XMLHttpRequest', XMLHttpRequestMock);
+    injector.mock({
+        'core/xhr/XMLHttpRequest': XMLHttpRequestMock,
+        'json': json
+    });
 
     injector.require(['core/xhr/http'],
         function(http) {
@@ -12,10 +16,13 @@ define(['test/js/core/xhr/XMLHttpRequestMock'], function(XMLHttpRequestMock) {
 
             var request;
             describe('get()', function() {
-                var requestMock = new XMLHttpRequestMock()
-                    .mock('GET', '/my/test/url').response({
-                        key: 'value'
-                    });
+                var requestMock;
+                before(function() {
+                    requestMock = XMLHttpRequestMock
+                        .mock('GET', '/my/test/url').response({
+                            key: 'value'
+                        });
+                });
 
                 it('should set request headers and type', function(done) {
                     var xhr = http.get('/my/test/url')

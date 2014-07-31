@@ -24,19 +24,24 @@ define(['core/obj'], function(obj) {
         var mock;
         try {
             mock = mocks[this.requestType][this.requestUrl][requestBody];
+            if (!mock) {
+                return console.warn('no mock found for ' + this.requestType +
+                    ' ' + this.requestUrl);
+            }
         } catch(e) {
             return console.warn('no mock found for ' + this.requestType + ' ' +
                 this.requestUrl);
         }
 
+        mock.count++;
         var self = this;
 
-        setTimeout(function() {
+        // setTimeout(function() {
             self.status = mock.status;
             self.readyState = mock.readyState;
             self.responseText = mock.responseText;
             self.onreadystatechange();
-        });
+        // });
     };
     XMLHttpRequestMock.prototype.open = function(type, url, async) {
         this.requestType = type;
@@ -61,8 +66,9 @@ define(['core/obj'], function(obj) {
      * @param  {Object} requestBody Request body to mock
      * @param  {core/xhr/XMLHttpRequestMock~HttpMockConfig} test bla
      * @memberOf core/xhr/XMLHttpRequestMock
+     * @instance
      */
-    XMLHttpRequestMock.prototype.mock = function(type, url, requestBody) {
+    XMLHttpRequestMock.mock = function(type, url, requestBody) {
         var mockType = mocks[type];
         if (!mockType) throw new Error('invalid mock request type: ' + type);
 
@@ -72,7 +78,8 @@ define(['core/obj'], function(obj) {
         var mock = urlMock[requestBody] = {
             responseText: undefined,
             status: 200,
-            readyState: 4
+            readyState: 4,
+            count: 0
         };
 
         return new HttpMockConfig(mock);
@@ -97,7 +104,7 @@ define(['core/obj'], function(obj) {
      * @protected
      */
     function HttpMockConfig(mock) {
-            this.mock = mock;
+        this.mock = mock;
     }
 
     HttpMockConfig.prototype = {
@@ -127,7 +134,7 @@ define(['core/obj'], function(obj) {
         readyState: function(readyState) {
             this.mock.readyState = readyState;
             return this;
-        }
+        },
     };
 
     return XMLHttpRequestMock;

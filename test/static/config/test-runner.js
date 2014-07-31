@@ -1,7 +1,5 @@
 require(['Squire'], function(Squire) {
 
-    window.Squire = Squire;
-
     var squireRequire = Squire.prototype.require;
 
     var injectCount = 0;
