@@ -1,4 +1,6 @@
 define(['core/events/EventListener'], function(EventListener) {
+    'use strict';
+
     describe('test/js/core/events/EventListener-test.js', function() {
 
         var listener, context;

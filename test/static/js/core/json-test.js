@@ -1,4 +1,5 @@
 define(['core/json'], function(json) {
+    'use strict';
 
     describe('test/js/core/json-test.js', function() {
         describe('parse()', function() {

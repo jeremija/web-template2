@@ -1,4 +1,6 @@
 define(['core/events/events', 'core/obj'], function(events, obj) {
+    'use strict';
+
     describe('test/js/core/events/events-test.js', function() {
 
         it('should be initialized', function() {
@@ -51,6 +53,7 @@ define(['core/events/events', 'core/obj'], function(events, obj) {
                 var context = {};
 
                 function cb(arg) {
+                    /*jshint validthis:true */
                     this.value = arg;
                 }
 
@@ -106,6 +109,7 @@ define(['core/events/events', 'core/obj'], function(events, obj) {
 
             it('should be able to remove listener', function() {
                 function callback() {
+                    /*jshint validthis:true */
                     this.called = true;
                 }
 

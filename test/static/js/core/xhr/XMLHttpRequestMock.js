@@ -1,4 +1,5 @@
 define(['core/obj'], function(obj) {
+    'use strict';
 
     var mocks = {
         GET: {},

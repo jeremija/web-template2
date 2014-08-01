@@ -1,5 +1,5 @@
 require(['Squire'], function(Squire) {
-
+    'use strict';
     var squireRequire = Squire.prototype.require;
 
     var injectCount = 0;

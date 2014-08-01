@@ -1,3 +1,6 @@
+/*jslint node: true */
+'use strict';
+
 console.log('starting express server...');
 
 var express = require('express');

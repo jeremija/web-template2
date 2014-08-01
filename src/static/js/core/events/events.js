@@ -4,6 +4,7 @@
  */
 define(['core/events/EventListener', 'core/obj'],
     function(EventListener, obj) {
+    'use strict';
 
     var allListeners = {};
 
@@ -26,8 +27,8 @@ define(['core/events/EventListener', 'core/obj'],
         _clear: function() {
             obj.each(allListeners, function(value, key) {
                 delete allListeners[key];
-                this._lastEvents = [];
             }, this);
+            this._lastEvents = [];
         },
         /**
          * Add an event listener

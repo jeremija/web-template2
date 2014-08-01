@@ -1,4 +1,5 @@
 define(['core/obj'], function(obj) {
+    'use strict';
 
     describe('test/js/core/obj-test.js', function() {
         describe('each()', function() {
@@ -71,6 +72,28 @@ define(['core/obj'], function(obj) {
                 expect(dest.b).to.be(4);
                 expect(dest.c).to.be(3);
                 expect(dest.d).to.be(5);
+            });
+        });
+        describe('create()', function() {
+            it('should create a new object with proto and props', function() {
+                var proto = {
+                    a: 1,
+                    toString: function() {
+                        return 'test';
+                    }
+                };
+
+                var props = {
+                    a: 2,
+                    b: 3
+                };
+
+                var newObject = obj.create(props, proto);
+
+                expect(proto.isPrototypeOf(newObject)).to.be(true);
+                expect(newObject.a).to.be(2);
+                expect(newObject.b).to.be(3);
+                expect(newObject.toString()).to.be('test');
             });
         });
     });

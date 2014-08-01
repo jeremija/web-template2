@@ -5,6 +5,6 @@
  * @private
  */
 define([], function() {
-
+    'use strict';
     return window.XMLHttpRequest || ActiveXObject;
 });

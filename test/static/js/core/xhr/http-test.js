@@ -1,5 +1,6 @@
 define(['test/js/core/xhr/XMLHttpRequestMock', 'Squire', 'core/json'],
     function(XMLHttpRequestMock, Squire, json) {
+    'use strict';
 
     var injector = new Squire();
 

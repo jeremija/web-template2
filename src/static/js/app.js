@@ -1,4 +1,5 @@
 define(['Extendable'], function(Extendable) {
+    'use strict';
 
     // fallback if window.console is not defined
     window.console = window.console || {

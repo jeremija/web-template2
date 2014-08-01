@@ -1,4 +1,5 @@
 define(['Extendable'], function(Extendable) {
+    'use strict';
 
     /**
      * @class handles information about event listener and it's callback

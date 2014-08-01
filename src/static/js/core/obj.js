@@ -3,6 +3,7 @@
  * @module core/obj
  */
 define([], function() {
+    'use strict';
 
     /**
      * @callback module:core/obj~eachCallback
@@ -28,6 +29,11 @@ define([], function() {
                 }
             }
         },
+        /**
+         * Finds the number of object's own properties
+         * @param  {Object} object
+         * @return {Number} number of object's own properties
+         */
         size: function(object) {
             var count = 0;
             this.each(object, function(value, key) {
@@ -35,6 +41,12 @@ define([], function() {
             });
             return count;
         },
+        /**
+         * Creates a shallow copy of object's properties
+         * @param  {Object} dest
+         * @param  {Object} src
+         * @return {Object} dest
+         */
         copy: function(dest, src) {
             if (!src || typeof dest !== 'object') return;
 
@@ -43,6 +55,25 @@ define([], function() {
             });
 
             return dest;
+        },
+        /**
+         * Creates a new object, sets it's prototype and copies all properties
+         * from the properties object to the new object.
+         * @param  {Object} properties instance properties for new object
+         * @param  {Object} prototype prototype object for new object
+         * @return {Object} newly created object
+         */
+        create: function(properties, prototype) {
+            if (!prototype) throw new Error('prototype must be defined');
+
+            // create a newObject which has the prototype object set as
+            // prototype
+            var newObject = Object.create(prototype);
+
+            // copy properties from properties to new object
+            this.copy(newObject, properties);
+
+            return newObject;
         }
     };
 

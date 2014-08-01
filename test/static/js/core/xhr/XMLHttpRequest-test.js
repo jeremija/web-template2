@@ -1,4 +1,5 @@
 define(['core/xhr/XMLHttpRequest'], function(XMLHttpRequest) {
+    'use strict';
 
     describe('test/js/core/xhr/XMLHttpRequest-test.js', function() {
         it('should be an instance of XMLHttpRequest', function() {
