@@ -75,6 +75,31 @@ define(['test/js/core/xhr/XMLHttpRequestMock', 'Squire', 'core/json'],
                 });
             });
 
+            describe('urlPrefix()', function() {
+                var mockConfig;
+                before(function() {
+                    XMLHttpRequestMock
+                        .mock('GET', 'http://test.com/my/url')
+                        .response({
+                            key: 'value'
+                        });
+                });
+                after(function() {
+                    http.urlPrefix('');
+                });
+                it('should use the url prefix if set', function() {
+                    http.urlPrefix('http://test.com/');
+
+                    var called = false;
+                    http.get('my/url').callback(function(err, data, xhr) {
+                        expect(data).to.be.an('object');
+                        expect(data.key).to.be('value');
+                        called = true;
+                    }).send();
+                    expect(called).to.be(true);
+                });
+            });
+
         });
 
     });

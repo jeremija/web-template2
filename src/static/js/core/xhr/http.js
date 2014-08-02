@@ -11,6 +11,8 @@ define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
         return result;
     }
 
+    var urlPrefix = '';
+
     function createXhrRequest(type, url, data) {
         var settings = {
             callback: function() {},
@@ -19,7 +21,7 @@ define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
         };
 
         var xhr = new XMLHttpRequest('MSXML2.XMLHTTP.3.0');
-        xhr.open(type, url, true);
+        xhr.open(type, urlPrefix + url, true);
 
         xhr.setRequestHeader('Content-type', 'application/json');
 
@@ -75,6 +77,10 @@ define(['core/json', 'core/xhr/XMLHttpRequest'], function(json, XMLHttpRequest)
      */
 
     var exports = {
+        urlPrefix: function(prefix) {
+            urlPrefix = prefix;
+            return this;
+        },
         /**
          * Dispatch a GET request
          * @param  {String} url
