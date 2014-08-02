@@ -1,4 +1,4 @@
-define(['Extendable'], function(Extendable) {
+define(['bootstrap'], function(bootstrap) {
     'use strict';
 
     // fallback if window.console is not defined

@@ -12,6 +12,7 @@
     "ink-docstrap": "^0.4.12",
     "jsdoc": "^3.3.0-alpha9",
     "jshint": "~2.5.2",
+    "less": "^1.7.4",
     "mocha-phantomjs": "~3.5.0",
     "phantomjs": "~1.9.7-15",
     "requirejs": "~2.1.14"

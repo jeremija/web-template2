@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>{{= settings.title}}</title>
 
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
 	{{ if (settings.development) { }}
 	<script src="js/require/config.js"></script>
   	<script data-main="js/app.js" src="bower/requirejs/require.js"></script>
@@ -12,3 +14,5 @@
   	{{ } }}
 </head>
 <body>
+	<div class="container">
+		<p>&nbsp;</p>

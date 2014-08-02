@@ -1,5 +1,6 @@
 node_modules/
 src/static/bower/
+src/static/css/
 dist/
 test/static/config/tests.js
 docs/

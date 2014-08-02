@@ -47,21 +47,29 @@ all: clean test
 	$(__START__)
 	$(__HELP__)
 
-	# creating required subfolders...
+	# creating required subfolders
 
 	@mkdir $(DIST)
 	@mkdir $(DIST)/static
 
-	# copying content...
+	# optimizing and copying css
+	@$(RJS) -o optimizeCss=standard \
+		cssIn=src/static/css/style.css out=$(DIST)/static/css/style.css
 
+	# copying fonts
+	@mkdir --parents $(DIST)/static/bower/bootstrap/
+	@cp -r src/static/bower/bootstrap/fonts $(DIST)/static/bower/bootstrap/
+
+	# copying server content
 	@cp -r src/server $(DIST)/server
+	# copying page javascript
 	@cp -r src/static/pages $(DIST)/static/pages
+	# copying page templates
 	@cp -r src/templates $(DIST)/templates
 
 	@mkdir $(DIST)/static/js
 
-	# running requirejs optimizer...
-
+	# running requirejs optimizer for javascript
 	@$(RJS) -o \
 		name="app" \
 		baseUrl="src/static/js" \
@@ -140,7 +148,7 @@ run-dist:
 
 	#visit http://localhost:$(RUN_PORT)/ after the server starts
 
-	@PORT=$(RUN_PORT) dist/server/
+	@PORT=$(RUN_PORT) node dist/server/
 
 	$(___OK___)
 
@@ -152,5 +160,13 @@ docs:
 	$(JSDOC) -d $(DOCS) -r src/static/js
 		# -c jsdoc.conf.json
 		# -t node_modules/ink-docstrap/template \
+
+	$(___OK___)
+
+.PHONY: less
+less:
+	$(__START__)
+
+	$(LESSC) --relative-urls src/static/less/index.less src/static/css/style.css
 
 	$(___OK___)

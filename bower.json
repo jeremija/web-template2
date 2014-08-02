@@ -16,7 +16,9 @@
   ],
   "dependencies": {
     "extendable.js": "~0.0.3",
-    "requirejs": "~2.1.14"
+    "requirejs": "~2.1.14",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0"
   },
   "devDependencies": {
     "mocha": "~1.21.0",
